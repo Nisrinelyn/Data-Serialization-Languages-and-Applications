@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS_DOM</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid rgb(229, 218, 218);
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="main" class="card card-body">
+        <h2 class="title">Items</h2>
+        <table id="items-table" class="list-group">
+            
+            <tr>
+                <td class="list-group-item">Book</td>
+            </tr>
+            <tr>
+                <td class="list-group-item">Pen</td>
+            </tr>
+            <tr>
+                <td class="list-group-item">Cloth</td>
+            </tr>
+            <tr>
+                <td class="list-group-item">Desk</td>
+            </tr>
+        </table>
+    </div>
+</div> 
+
+<script>
+    // ดึงรายการทั้งหมดที่มีคลาส 'list-group-item'
+    var items = document.getElementsByClassName('list-group-item');
+
+    // แก้ไข text content ของ item ที่ 2 (index 1)
+    if (items.length > 1) {
+        items[1].textContent = 'Pencil';
+    }
+
+    // ปรับฟอนต์และสีพื้นหลังของทุกไอเท็ม
+    for (var i = 0; i < items.length; i++) {
+        items[i].style.fontWeight = 'bold';
+        items[i].style.backgroundColor = '#f4f4f4';
+    }
+</script>
+
+</body>
+</html>

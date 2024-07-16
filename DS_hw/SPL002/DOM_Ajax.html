@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTML DOM + AJAX</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3e6f6; /* สีพื้นหลังม่วงอ่อน */
+      color: #4a2a6c; /* สีข้อความม่วงเข้ม */
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: #6d28d9; /* สีหัวเรื่องม่วงเข้ม */
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+    }
+
+    button {
+      background-color: #6d28d9; /* สีพื้นหลังปุ่มม่วงเข้ม */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #5a1e9c; /* สีพื้นหลังปุ่มเมื่อชี้ */
+    }
+
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+
+    table, th, td {
+      border: 1px solid #d1c4e9; /* สีขอบตารางม่วงอ่อน */
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #d1c4e9; /* สีพื้นหลังของหัวตารางม่วงอ่อน */
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f5fc; /* สีพื้นหลังของแถวที่เป็นคู่ */
+    }
+
+    form {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #ffffff; /* สีพื้นหลังของฟอร์มขาว */
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เงาของฟอร์ม */
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: calc(100% - 22px);
+      padding: 10px;
+      border: 1px solid #d1c4e9; /* สีขอบของช่องกรอกข้อมูลม่วงอ่อน */
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    button[type="button"] {
+      background-color: #6d28d9; /* สีพื้นหลังปุ่มในฟอร์มม่วงเข้ม */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button[type="button"]:hover {
+      background-color: #5a1e9c; /* สีพื้นหลังปุ่มในฟอร์มเมื่อชี้ */
+    }
+  </style>
+</head>
+<body>
+
+<h1>Book Collection</h1>
+
+<!-- Form to add a new book -->
+<h2>Add a new Book</h2>
+<form>
+  <label for="author">Author:</label>
+  <input type="text" id="author" name="author"><br><br>
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title"><br><br>
+  <button type="button" onclick="addBook()">Add Book</button>
+</form>
+
+<!-- Button to load book collection -->
+<button type="button" onclick="loadXMLDoc()">Get my Book Collection</button>
+<br><br>
+
+<!-- Table to display the book collection -->
+<table border="1" id="demo"></table>
+
+<script>
+var xmlDoc;
+
+function loadXMLDoc() {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      myFunction(this);
+    }
+  };
+  xmlhttp.open("GET", "book_catalog.xml", true);
+  xmlhttp.send();
+}
+
+function myFunction(xml) {
+  xmlDoc = xml.responseXML;
+  var i;
+  var table = "<tr><th>Author</th><th>Title</th></tr>";
+  var x = xmlDoc.getElementsByTagName("book");
+  for (i = 0; i < x.length; i++) {
+    table += "<tr><td>" +
+    x[i].getElementsByTagName("author")[0].childNodes[0].nodeValue + "</td><td>" +
+    x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
+    "</td></tr>";
+  }
+  document.getElementById("demo").innerHTML = table;
+}
+
+function addBook() {
+  if (!xmlDoc) {
+    alert("Please load the XML document first.");
+    return;
+  }
+  
+  var newBook = xmlDoc.createElement("book");
+  var newAuthor = xmlDoc.createElement("author");
+  var newTitle = xmlDoc.createElement("title");
+
+  var authorText = document.createTextNode(document.getElementById("author").value);
+  var titleText = document.createTextNode(document.getElementById("title").value);
+
+  newAuthor.appendChild(authorText);
+  newTitle.appendChild(titleText);
+  newBook.appendChild(newAuthor);
+  newBook.appendChild(newTitle);
+  xmlDoc.documentElement.appendChild(newBook);
+
+  displayTable();
+}
+
+function displayTable() {
+  var i;
+  var table = "<tr><th>Author</th><th>Title</th></tr>";
+  var x = xmlDoc.getElementsByTagName("book");
+  for (i = 0; i < x.length; i++) {
+    table += "<tr><td>" +
+    x[i].getElementsByTagName("author")[0].childNodes[0].nodeValue + "</td><td>" +
+    x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
+    "</td></tr>";
+  }
+  document.getElementById("demo").innerHTML = table;
+  
+}
+</script>
+
+</body>
+</html>

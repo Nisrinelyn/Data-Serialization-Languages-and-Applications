@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <book>
+    <author>George Orwell</author>
+    <title>1984</title>
+  </book>
+  <book>
+    <author>J.K. Rowling</author>
+    <title>Harry Potter and the Philosopher's Stone</title>
+  </book>
+  <book>
+    <author>J.R.R. Tolkien</author>
+    <title>The Hobbit</title>
+  </book>
+</catalog>

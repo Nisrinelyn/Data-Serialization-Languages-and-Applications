@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>htmlDOM_Part1</title>
+</head>
+<body>
+
+<div class="container">
+    <div id="main" class="card card-body">
+        <h2 class="title">Items</h2>
+        <ul id="items" class="list-group">
+            <li class="list-group-item">Book</li>
+            <li class="list-group-item">Pen</li>
+            <li class="list-group-item">Cloth</li>
+            <li class="list-group-item">Desk</li>
+        </ul>
+    </div>
+</div> 
+
+<script>
+    // ดึงรายการทั้งหมดที่มีคลาส 'list-group-item'
+    var items = document.getElementsByClassName('list-group-item');
+
+    // แก้ไข text content ของ item ที่ 2 (index 1)
+    if (items.length > 1) {
+        items[1].textContent = 'Pencil';
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Document Object Model</h1>
+<p>Add new paragraph when input text from text box and press submit</p>
+
+<form>
+    <input type="text" id="inputText" size="50" />
+    <input type="button" value="Submit" onclick="addParagraph()" />
+</form>
+
+<div id="div1"></div>
+
+<script>
+function addParagraph() {
+    // รับค่าจาก input box
+    var inputText = document.getElementById('inputText').value;
+    
+    // สร้างแท็ก <p>
+    var newParagraph = document.createElement('p');
+    
+    // ใส่ข้อความในแท็ก <p>
+    newParagraph.textContent = inputText;
+    
+    // เพิ่มแท็ก <p> ภายใต้ <div id="div1">
+    document.getElementById('div1').appendChild(newParagraph);
+}
+</script>
+
+</body>
+</html>
